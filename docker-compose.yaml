@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "3070:5173"
+
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=mypassword
+      - DB_NAME=grocery_store_db
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypassword
+      - MYSQL_DATABASE=grocery_store_db
+    ports:
+      - "3306:3306"
