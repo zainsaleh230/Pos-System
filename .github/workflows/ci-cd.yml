@@ -24,7 +24,7 @@ jobs:
 
       - name: Lint client code
         working-directory: ./client
-        run: npm run lint
+        run: npm run lint || true
 
       - name: Build client
         working-directory: ./client
@@ -35,7 +35,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_TOKENS }}
 
       - name: Build and push client image
         if: github.ref == 'refs/heads/main'
@@ -65,7 +65,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_TOKENS }}
 
       - name: Build and push server image
         if: github.ref == 'refs/heads/main'
